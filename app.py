@@ -54,9 +54,9 @@ if section == "Train Delay Analysis":
         if not mdu_df.empty:
             st.line_chart(mdu_df.set_index("TRAINDATE")["ARVL_DELAY_MIN"])
             df_display = (mdu_df[["TRAINDATE", "ARVL_DELAY_MIN"]].rename(columns={"ARVL_DELAY_MIN": "Delay at MDU (min)"}).reset_index(drop=True))
-df_display.index += 1
-df_display.index.name = "S. No"
-st.dataframe(df_display)
+            df_display.index += 1
+            df_display.index.name = "S. No"
+            st.dataframe(df_display)
 
         else:
             st.warning("No MDU delay data found for selected dates.")
