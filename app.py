@@ -12,6 +12,10 @@ import joblib
 import numpy as np
 
 st.set_page_config(page_title="Vaigai Express Delay Dashboard", layout="wide")
+
+cris_logo = Image.open("logo_cris.png")
+st.image(cris_logo, width=150)
+
 st.title("Train Delay Analysis & Prediction Dashboard")
 
 @st.cache_data
