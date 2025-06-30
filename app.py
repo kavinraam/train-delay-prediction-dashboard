@@ -57,7 +57,6 @@ if section == "Train Delay Analysis":
             df_display.index += 1
             df_display.index.name = "S. No"
             st.dataframe(df_display)
-
         else:
             st.warning("No MDU delay data found for selected dates.")
     else:
@@ -86,13 +85,31 @@ elif section == "Route Performance":
 elif section == "Delay Prediction":
     st.header("Predict Arrival Delay Using ML Model")
 
+    station_distances = {
+        "MS": 0.0,
+        "TBM": 24.5,
+        "CGL": 67.0,
+        "VM": 134.8,
+        "VRI": 171.3,
+        "ALU": 210.5,
+        "SRGM": 262.3,
+        "TPJ": 316.5,
+        "MPA": 366.8,
+        "DG": 432.7,
+        "SDN": 471.2,
+        "MDU": 497.8
+    }
+
     with st.expander("Enter Journey Details"):
+        selected_station = st.selectbox("Select Station", list(station_distances.keys()))
+        distance_km = station_distances[selected_station]
+        st.info(f"Distance from MS: **{distance_km} km**")
+
         day_of_week = st.selectbox("Day of Week (0=Mon, ..., 6=Sun)", list(range(7)))
         hour_of_day = st.slider("Hour of Departure", 0, 23, 14)
         is_weekend = st.radio("Is Weekend?", [0, 1])
-        halt_min = st.number_input("Halt Duration (minutes)", min_value=0.0, max_value=15.0, value=2.0)
+        halt_min = st.number_input("Halt Duration at Station (minutes)", min_value=0.0, max_value=15.0, value=2.0)
         dep_delay = st.number_input("Departure Delay (min)", min_value=-30.0, max_value=300.0, value=5.0)
-        distance_km = st.number_input("Distance from Start (km)", min_value=0.0, max_value=600.0, value=250.0)
 
     if st.button("Predict Arrival Delay"):
         try:
@@ -109,3 +126,4 @@ elif section == "Delay Prediction":
             st.success(f"Predicted Arrival Delay: {round(prediction, 2)} minutes")
         except Exception as e:
             st.error(f"Prediction failed: {e}")
+
