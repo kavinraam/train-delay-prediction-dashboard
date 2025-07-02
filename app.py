@@ -34,8 +34,8 @@ section = st.sidebar.radio("Select Section", ["Train Delay Analysis", "Route Per
 if section == "Train Delay Analysis":
     st.header("Arrival Delay at Final Station : MDU")
 
-    start_date = pd.to_datetime("2025-06-15")
-    end_date = pd.to_datetime("2025-06-24")
+    start_date = pd.to_datetime("15-06-2025")
+    end_date = pd.to_datetime("24-06-2025")
     st.info(f"Showing delays from **{start_date.date()}** to **{end_date.date()}**")
 
     filtered_df = df[(df["TRAINDATE"] >= start_date) & (df["TRAINDATE"] <= end_date)]
