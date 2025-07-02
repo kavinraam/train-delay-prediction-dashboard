@@ -17,7 +17,7 @@ st.set_page_config(page_title="Vaigai Express Delay Dashboard", layout="wide")
 cris_logo = Image.open("logo_cris.png")
 st.image(cris_logo, width=150)
 
-st.title("12635:Vaigai Train Delay Analysis & Prediction Dashboard [15-06-2025:24-06-2025]")
+st.title("12635 : Vaigai Train Delay Analysis & Prediction Dashboard")
 
 @st.cache_data
 def load_data():
@@ -31,7 +31,7 @@ df["STTN_CODE"] = df["STTN_CODE"].astype(str).str.strip()
 section = st.sidebar.radio("Select Section", ["Train Delay Analysis", "Route Performance", "Delay Prediction"])
 
 if section == "Train Delay Analysis":
-    st.header("Arrival Delay at Final Station: MDU")
+    st.header("Arrival Delay at Final Station : MDU [15-06-2025:24-06-2025]")
 
     start_date = pd.to_datetime("2025-06-15")
     end_date = pd.to_datetime("2025-06-24")
