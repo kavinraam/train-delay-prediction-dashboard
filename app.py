@@ -18,7 +18,7 @@ cris_logo = Image.open("logo_cris.png")
 st.image(cris_logo, width=150)
 
 st.title("12635 : Vaigai Train Delay Analysis & Prediction Dashboard")
-st.header("[15-06-2025:24-06-2025]")
+st.header("[15-06-2025 to 24-06-2025]")
 
 @st.cache_data
 def load_data():
