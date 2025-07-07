@@ -87,8 +87,8 @@ elif section == "Route Performance":
 elif section == "Delay Prediction":
     st.header("Predict Arrival Delay at Final Station: MDU (Using ML Model)")
 
-    with st.expander("Predict Delay"):
-        st.info("Model always predicts delay at **MDU**, based on your input conditions.")
+    with st.expander("Predict Arrival Delay"):
+        st.info("Model predicts delay at MDU, based on your input conditions.")
 
         day_of_week = st.selectbox("Day of Week (0=Mon, ..., 6=Sun)", list(range(7)))
         hour_of_day = st.slider("Hour of Departure", 0, 23, 14)
