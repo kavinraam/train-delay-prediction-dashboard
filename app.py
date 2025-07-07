@@ -87,7 +87,7 @@ elif section == "Route Performance":
 elif section == "Delay Prediction":
     st.header("Predict Arrival Delay at Final Station: MDU (Using ML Model)")
 
-    with st.expander("Enter Journey Details"):
+    with st.expander("Predict Delay"):
         st.info("Model always predicts delay at **MDU**, based on your input conditions.")
 
         day_of_week = st.selectbox("Day of Week (0=Mon, ..., 6=Sun)", list(range(7)))
@@ -99,7 +99,7 @@ elif section == "Delay Prediction":
 
     if st.button("Predict Arrival Delay at MDU"):
         try:
-            model = joblib.load("vaigai_delay_model.pkl")  # Make sure this is your MDU-specific model
+            model = joblib.load("vaigai_delay_model.pkl")  
             sample = pd.DataFrame([{
                 "DAY_OF_WEEK": day_of_week,
                 "HOUR_OF_DAY": hour_of_day,
