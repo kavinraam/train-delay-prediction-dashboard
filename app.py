@@ -43,7 +43,8 @@ if section == "Train Delay Analysis":
     if not filtered_df.empty:
         mdu_df = filtered_df[filtered_df["STTN_CODE"] == "MDU"].dropna(subset=["ARVL_DELAY_MIN"])
         if not mdu_df.empty:
-            st.line_chart(mdu_df.set_index("TRAINDATE")["ARVL_DELAY_MIN"])
+            mdu_df["DATE_ONLY"] = mdu_df["TRAINDATE"].dt.date
+            st.line_chart(mdu_df.set_index("DATE_ONLY")["ARVL_DELAY_MIN"])
             df_display = (mdu_df[["TRAINDATE", "ARVL_DELAY_MIN"]]
                           .rename(columns={"ARVL_DELAY_MIN": "DELAY AT MDU (min)"})
                           .reset_index(drop=True))
