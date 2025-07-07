@@ -85,37 +85,21 @@ elif section == "Route Performance":
         st.warning("No delay data available.")
 
 elif section == "Delay Prediction":
-    st.header("Predict Arrival Delay Using ML Model")
-
-    station_distances = {
-        "MS": 0.0,
-        "TBM": 24.5,
-        "CGL": 67.0,
-        "VM": 134.8,
-        "VRI": 171.3,
-        "ALU": 210.5,
-        "SRGM": 262.3,
-        "TPJ": 316.5,
-        "MPA": 366.8,
-        "DG": 432.7,
-        "SDN": 471.2,
-        "MDU": 497.8
-    }
+    st.header("Predict Arrival Delay at Final Station: MDU (Using ML Model)")
 
     with st.expander("Enter Journey Details"):
-        selected_station = st.selectbox("Select Station", list(station_distances.keys()))
-        distance_km = station_distances[selected_station]
-        st.info(f"Distance from MS: **{distance_km} km**")
+        st.info("Model always predicts delay at **MDU**, based on your input conditions.")
 
         day_of_week = st.selectbox("Day of Week (0=Mon, ..., 6=Sun)", list(range(7)))
         hour_of_day = st.slider("Hour of Departure", 0, 23, 14)
         is_weekend = st.radio("Is Weekend?", [0, 1])
-        halt_min = st.number_input("Halt Duration at Station (minutes)", min_value=0.0, max_value=15.0, value=2.0)
-        dep_delay = st.number_input("Departure Delay (min)", min_value=-30.0, max_value=300.0, value=5.0)
+        halt_min = st.number_input("Halt Duration at Previous Station (minutes)", min_value=0.0, max_value=15.0, value=2.0)
+        dep_delay = st.number_input("Departure Delay from Previous Station (min)", min_value=-30.0, max_value=300.0, value=5.0)
+        distance_km = st.number_input("Distance Covered Until Previous Station (KM)", min_value=0.0, max_value=500.0, value=171.3)
 
-    if st.button("Predict Arrival Delay"):
+    if st.button("Predict Arrival Delay at MDU"):
         try:
-            model = joblib.load("vaigai_delay_model.pkl")
+            model = joblib.load("vaigai_delay_model.pkl")  # Make sure this is your MDU-specific model
             sample = pd.DataFrame([{
                 "DAY_OF_WEEK": day_of_week,
                 "HOUR_OF_DAY": hour_of_day,
@@ -125,7 +109,6 @@ elif section == "Delay Prediction":
                 "DISTANCE_KM": distance_km
             }])
             prediction = model.predict(sample)[0]
-            st.success(f"Predicted Arrival Delay: {round(prediction, 2)} minutes")
+            st.success(f"Predicted Arrival Delay at MDU: {round(prediction, 2)} minutes")
         except Exception as e:
             st.error(f"Prediction failed: {e}")
-
