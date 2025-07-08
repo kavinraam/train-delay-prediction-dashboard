@@ -103,7 +103,8 @@ elif section == "Delay Prediction":
     }
 
     with st.expander("Enter Journey Details"):
-        selected_station = st.selectbox("Select Station", list(station_distances.keys()))
+        station_choices = [s for s in station_distances.keys() if s != "MS"]
+        selected_station = st.selectbox("Select Station", station_choices)
         distance_km = station_distances[selected_station]
         st.info(f"Distance from MS: **{distance_km} km**")
 
